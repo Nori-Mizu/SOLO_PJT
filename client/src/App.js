@@ -6,21 +6,21 @@ function App() {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch("http://localhost:3000/api");
-      console.log(response);
-      const data = await response.json();
-      console.log(data);
-      setBackendData(data);
-      console.log(data);
-    }
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const response = await fetch("http://localhost:3000/api");
+  //     console.log(response);
+  //     const data = await response.json();
+  //     console.log(data);
+  //     setBackendData(data);
+  //     console.log(data);
+  //   }
+  //   fetchData();
+  // }, []);
 
   useEffect(() => {
     async function fetchChatData() {
-      const response = await fetch("/api/chat");
+      const response = await fetch("http://localhost:3000/api/chat");
       const data = await response.json();
       setChatData(data);
       console.log(data);
@@ -39,7 +39,7 @@ function App() {
   const handleSend = () => {
     // メッセージと日時をサーバーに送信
     const timestamp = new Date().toISOString();
-    fetch("/api/chat", {
+    fetch("http://localhost:3000/api/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,6 +50,7 @@ function App() {
       .then((newMessage) => {
         // 送信後に表示を更新
         setChatData([...chatData, newMessage]);
+        console.log(newMessage);
         setMessage("");
       })
       .catch((error) => {
@@ -59,24 +60,20 @@ function App() {
 
   return (
     <div>
-      {typeof backendData.users === "undefined" ? (
+      {/* {typeof backendData.users === "undefined" ? (
         <p>Loading...</p>
       ) : (
         backendData.users.map((user, i) => <p key={i}>{user}</p>)
-      )}
-
+      )} */}
+      <h1>＜EV時代を考える＞</h1>
+      <h2>※マナーを守って投稿しましょう</h2>
       {chatData.map((message, i) => (
-        <div key={i}>
-          <div style={{ display: "flex", marginBottom: "10px" }}>
-            <span style={{ fontWeight: "bold" }}>Name:</span>
-            <span style={{ marginLeft: "5px" }}>{message.name}</span>
-          </div>
-          <div style={{ display: "flex", marginBottom: "10px" }}>
-            <span style={{ fontWeight: "bold" }}>Message:</span>
-            <span style={{ marginLeft: "5px" }}>{message.message}</span>
-          </div>
-          <p>Timestamp: {message.timestamp}</p>
-          <br />
+        <div key={i} style={{ display: "flex", marginBottom: "10px" }}>
+          <span style={{ marginRight: "2ch" }}>名前: {message.name}</span>
+          <span style={{ marginRight: "2ch" }}>
+            メッセージ: {message.message}
+          </span>
+          <span>投稿日時: {message.created_at}</span>
         </div>
       ))}
 
@@ -85,17 +82,17 @@ function App() {
           type="text"
           value={name}
           onChange={handleNameChange}
-          placeholder="Name"
+          placeholder="ここに名前"
         />
-        <br />
+
         <input
           type="text"
           value={message}
           onChange={handleMessageChange}
-          placeholder="Message"
+          placeholder="ここにメッセージ"
         />
-        <br />
-        <button onClick={handleSend}>Send</button>
+
+        <button onClick={handleSend}>投稿！！</button>
       </div>
     </div>
   );

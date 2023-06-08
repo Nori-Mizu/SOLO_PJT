@@ -23,9 +23,10 @@ app.get("/api/chat", (req, res) => {
 });
 
 app.post("/api/chat", (req, res) => {
-  const { name, message, timestamp } = req.body;
+  const { name, message, created_at } = req.body;
+
   database("chat2_table")
-    .insert({ name, message, created_at: timestamp })
+    .insert({ name, message, created_at })
     .returning("*")
     .then((newMessage) => {
       res.status(201).json(newMessage[0]);

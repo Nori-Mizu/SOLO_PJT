@@ -69,9 +69,9 @@ function App() {
       <h2>※マナーを守って投稿しましょう</h2>
       {chatData.map((message, i) => (
         <div key={i} style={{ display: "flex", marginBottom: "10px" }}>
-          <span style={{ marginRight: "2ch" }}>名前: {message.name}</span>
+          <span style={{ marginRight: "2ch" }}>名前:【 {message.name} 】</span>
           <span style={{ marginRight: "2ch" }}>
-            メッセージ: {message.message}
+            メッセージ: 『 {message.message} 』
           </span>
           <span>投稿日時: {message.created_at}</span>
         </div>

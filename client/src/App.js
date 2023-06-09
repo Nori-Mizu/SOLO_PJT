@@ -6,21 +6,21 @@ function App() {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const response = await fetch("http://localhost:3000/api");
-  //     console.log(response);
-  //     const data = await response.json();
-  //     console.log(data);
-  //     setBackendData(data);
-  //     console.log(data);
-  //   }
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch("/api");
+      console.log(response);
+      const data = await response.json();
+      console.log(data);
+      setBackendData(data);
+      console.log(data);
+    }
+    fetchData();
+  }, []);
 
   useEffect(() => {
     async function fetchChatData() {
-      const response = await fetch("http://localhost:3000/api/chat");
+      const response = await fetch("/api/chat");
       const data = await response.json();
       setChatData(data);
       console.log(data);
@@ -39,7 +39,7 @@ function App() {
   const handleSend = () => {
     // メッセージと日時をサーバーに送信
     const timestamp = new Date().toISOString();
-    fetch("http://localhost:3000/api/chat", {
+    fetch("/api/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
